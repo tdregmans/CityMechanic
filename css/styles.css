@@ -1,0 +1,18 @@
+body {
+    background-color: lightslategray;
+    margin: 0;
+}
+noscript {
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    left: 10%;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    background-color: red;
+    color: whitesmoke;
+    font-size: 40px;
+}

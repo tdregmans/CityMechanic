@@ -1,7 +1,19 @@
-# the-Game
-A game in the browser that helps you understand how societies work
+# 1000: The Game
+A game in the browser that helps you understand how societies work.
+
+## Status
+The project is in development.
 
 ## The idea
+
+### Name
+
+The name is "1000: The Game", said as 'One-Thousand, The Game'. The game is named this, because it is the goal of the game to complete 1000 years. Your society has to continue for at least 1000 years.
+
+You decide what happens. There are a number of options. You recieve tokens you can play. The tokens impact your society; sometimes in unexpected ways.
+
+### Original idea
+
 > Idea for a new game:
 > 
 > I have a new idea for a new game: It is a simulation game. You controle a civilisation. There are things that can control and things you cannot control.
@@ -43,3 +55,11 @@ A game in the browser that helps you understand how societies work
 I am building the game in a html/javascript frame. You play the game in your browser. I don't know yet if there will be a database.
 If I need to save data, I can also store cookies. If I need to get data, I can have a csv or json-file for the game contants.
 I'm not yet sure how this will be.
+
+## Prerequisites
+
+*Not yet written.*
+
+## Installation
+
+*Not yet written.*

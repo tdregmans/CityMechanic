@@ -16,3 +16,10 @@ noscript {
     color: whitesmoke;
     font-size: 40px;
 }
+
+.screen {
+    background-color: whitesmoke;
+    justify-content: center;
+    align-content: center;
+
+}

@@ -63,3 +63,10 @@ I'm not yet sure how this will be.
 ## Installation
 
 *Not yet written.*
+
+
+## Inspiration
+
+Here are some articles and other sources I used:
+- ['how to render 3d in 2d canvas' from mamboleoo.be](https://www.mamboleoo.be/articles/how-to-render-3d-in-2d-canvas)
+- 

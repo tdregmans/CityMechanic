@@ -1,69 +1,55 @@
-# 1000: The Game
-A game in the browser that helps you understand how societies work.
+# CityMechanic
+CityMechanic is a game that allows the user to build cities and see the impact of their design choices.
+
+*The file structure was originally forked from [tdregmans/1000-the-game](https://github.com/tdregmans/1000-the-game).*
 
 ## Status
 The project is in development.
 
-## The idea
+## Idea
 
-### Name
+The idea came from the [The House of Futures (Futurium)](https://futurium.de/en) in Berlin. On the ground floor, there was a game like it with Lego pieces and a projector. It inspired me and I decided to build something similar.
 
-The name is "1000: The Game", said as 'One-Thousand, The Game'. The game is named this, because it is the goal of the game to complete 1000 years. Your society has to continue for at least 1000 years.
+### Tiles
 
-You decide what happens. There are a number of options. You recieve tokens you can play. The tokens impact your society; sometimes in unexpected ways.
+The player has a grid of 20 by 20 tiles. The player is free to design the city in the way he/she wants. He/she does this by clicking a tile. It will switch to a different types. There are different types of tiles:
 
-### Original idea
+- Sky Scrapers (blue)
+- Road (gray)
+- Water (light blue)
+- Nature (green)
+- Residential Area (red)
+- Industry (yellow)
 
-> Idea for a new game:
-> 
-> I have a new idea for a new game: It is a simulation game. You controle a civilisation. There are things that can control and things you cannot control.
-> 
-> Every month, a new civilisation start. There are different types of civilisations, like:
-> - Egyptians
-> - Arabians
-> - Romans
-> - Scots
-> - Americans
-> - Nazis
-> - Communists
-> - Russians
-> - Greeks
-> - Trans-humanists
-> 
-> In the game, 24 hours equals 1 year.
-> 
-> Certain events can happen to the civilisation:
-> - Economic recession/stagnation/growth
-> - New tech introduced
-> - Revolution
-> - Pandemic
-> 
-> There are a number of options you have:
-> - Install world leaders
-> - Introduce new tech
-> - Create more nature
-> - Be hard/soft on crime
-> - Impose religion 
-> 
-> There are a few scales on which we measure how alive your civilication is:
-> - Economic (GDP/head, trades/head)
-> - Happiness (Suicides, average of other factors)
-> - Social Cohesion 
-> - Health (average healthy years)
+At the start of the game, a random type is chosen for each tile.
 
-## Architecture
-I am building the game in a html/javascript frame. You play the game in your browser. I don't know yet if there will be a database.
-If I need to save data, I can also store cookies. If I need to get data, I can have a csv or json-file for the game contants.
-I'm not yet sure how this will be.
+### Indicators
 
-## Prerequisites
+The user can see the impact of his/her design choices by looking at the indicators. There are different types of indicators.
 
-*Not yet written.*
+#### Basic indicators
 
-## Installation
+- Ecological Footprint (The more Water and Nature, the lower the Ecological Footprint. The more Industry and Road, the lower the Ecological Footprint.)
+- No. of Residents (The more Residential Area and Sky Scrapers, the more residents there are.)
+- Average Travel Speed (The more Road, the higher the average speed.)
 
-*Not yet written.*
+#### Complex indicators
 
+- Efficency
+- Love of Nature
+- GDP
+- Percieved Freedom
+
+### Play modes
+
+Like in other games, the player can choose a play mode:
+
+- Unlimited: In this mode, the player can modify the city as much as he/she wants. The modifications take effect immediately. 
+- Scarce: In this mode, the player the building resources are scarce. Modification takes time and resources. The modifications are queued.
+
+## File stucture
+
+The game is played in a browser, with `index.html`. The style guide is stored in `css/` and the source code is stored in `js/`.
 
 ## Inspiration
 

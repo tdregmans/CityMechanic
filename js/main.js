@@ -1,10 +1,10 @@
 /**
- * 1000: The Game
+ * CityMechanic
  * main.js
  * version: 1.0
  * 
  * Author: Thijs Dregmans
- * Last edited: 2023-07-04
+ * Last edited: 2024-01-01
  * 
  * See README.md for more information.
  */

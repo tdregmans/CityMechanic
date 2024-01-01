@@ -27,3 +27,23 @@ noscript {
     margin-top: -240px;
     margin-left: -320px;
 }
+
+.title {
+    color: whitesmoke;
+    text-align: center;
+}
+
+.comment {
+    position: fixed;
+    bottom: 0;
+    right: 2em;
+}
+
+.link {
+    color: #ccff00
+}
+
+.outside-text {
+    color: #FFFFFF;
+    size: 5px;
+}

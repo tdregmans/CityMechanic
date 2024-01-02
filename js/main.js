@@ -36,7 +36,7 @@ class Grid {
     for (let x = 0; x < this.noOfTiles; x++) {
       let row = [];
       for (let y = 0; y < this.noOfTiles; y++) {
-        let randomType = tileTypes[Math.floor(Math.random() * (Object.getOwnPropertyNames(tileTypes).length - 1))];
+        let randomType = Math.floor(Math.random() * (Object.getOwnPropertyNames(tileTypes).length - 1));
         row.push(randomType);
       } 
       this.grid.push(row);
@@ -47,9 +47,17 @@ class Grid {
     for (let x = 0; x < this.noOfTiles; x++) {
       let row = this.grid[x];
       for (let y = 0; y < this.noOfTiles; y++) {
-        drawTile(x, y, row[y]);
+        drawTile(x, y, tileTypes[row[y]]);
       }
     } 
+  }
+  
+  updateTileType(x, y, color) {
+    this.grid[x][y] = color;
+  }
+
+  getColor(x, y) {
+    return this.grid[x][y];
   }
 }
 
@@ -69,6 +77,7 @@ function drawTile(xIndex, yIndex, color) {
 
   ctx.fillStyle = color;
   ctx.fillRect(x, y, tileSize, tileSize );
+
 }
 
 function getCursorPosition(canvas, event) {
@@ -97,8 +106,14 @@ if (canvas.getContext) {
     canvas.addEventListener('click', function(e) {
       let coords = getTileIndex(getCursorPosition(canvas, e).x, getCursorPosition(canvas, e).y);
 
-      console.log(coords);
-      drawTile(coords.xIndex, coords.yIndex, "Red");
+      let newColor = grid.getColor(coords.xIndex, coords.yIndex) + 1;
+      if (newColor > Object.getOwnPropertyNames(tileTypes).length - 1) {
+        newColor = 0;
+      }
+      console.log(newColor);
+      grid.updateTileType(coords.xIndex, coords.yIndex, newColor);
+
+      grid.draw();
     });
     
 } 

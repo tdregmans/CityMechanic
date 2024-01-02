@@ -21,7 +21,6 @@ let time = d.getTime();
 let width = canvas.offsetWidth; // Width of the scene
 let height = canvas.offsetHeight; // Height of the scene
 
-
 const tileTypes = ["DarkBlue", "DarkGray", "Cyan", "LawnGreen", "Tomato", "Yellow"];
 
 class Grid {
@@ -45,11 +44,9 @@ class Grid {
   }
 
   draw() {
-    console.log(noOfTiles);
     for (let x = 0; x < this.noOfTiles; x++) {
       let row = this.grid[x];
       for (let y = 0; y < this.noOfTiles; y++) {
-        console.log(row[y]);
         drawTile(x, y, row[y]);
       }
     } 
@@ -74,11 +71,23 @@ function drawTile(xIndex, yIndex, color) {
   ctx.fillRect(x, y, tileSize, tileSize );
 }
 
+function getCursorPosition(canvas, event) {
+  const rect = canvas.getBoundingClientRect()
+  const x = event.clientX - rect.left
+  const y = event.clientY - rect.top
+  console.log("x: " + x + " y: " + y)
+}
+
 // execute code
 if (canvas.getContext) {
     // drawing code here
     grid.draw();
     console.log("drawing...");
+    
+    canvas.addEventListener('click', function(e) {
+      getCursorPosition(canvas, e)
+    });
+    
 } 
 else {
     // canvas-unsupported code here

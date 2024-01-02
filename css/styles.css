@@ -28,6 +28,36 @@ noscript {
     margin-left: -320px;
 }
 
+.info {
+    background-color: whitesmoke;
+    position: relative;
+    width: 15%;
+
+    margin: -5px;
+    padding: 5px;
+}
+
+.left-info {
+    left: 5%;
+}
+
+.right-info {
+    right: 5%;
+}
+
+
+.info + .info {
+    margin-top: 40px;
+}
+
+.mode {
+
+}
+
+.indicators {
+    
+}
+
 .title {
     color: whitesmoke;
     text-align: center;

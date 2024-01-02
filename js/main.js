@@ -59,6 +59,20 @@ class Grid {
   getColor(x, y) {
     return this.grid[x][y];
   }
+
+  getAmountOfColor(color) {
+    var count = 0;
+
+    for (let x = 0; x < this.noOfTiles; x++) {
+      let row = this.grid[x];
+      for (let y = 0; y < this.noOfTiles; y++) {
+        if (this.getColor(x, y) == color) {
+          count += 1;
+        }
+      }
+    }
+    return count;
+  }
 }
 
 const tileSize = 40;
@@ -97,12 +111,27 @@ function getTileIndex(x, y) {
   return ({"xIndex": xIndex, "yIndex": yIndex});
 }
 
+// Indicators
+var EcologicalFootprintIndicatorValue = 0;
+var NoOfResidentsIndicatorValue = 0;
+var AverageTravelSpeedIndicatorValue = 0;
+
+function updateIndicatorValues() {
+  EcologicalFootprintIndicatorValue = grid.getAmountOfColor(2) + grid.getAmountOfColor(3) - (grid.getAmountOfColor(1) + grid.getAmountOfColor(5));
+  NoOfResidentsIndicatorValue = grid.getAmountOfColor(4);
+  AverageTravelSpeedIndicatorValue = grid.getAmountOfColor(1);
+
+  document.getElementById("EcologicalFootprintIndicatorValue").innerHTML = EcologicalFootprintIndicatorValue;
+  document.getElementById("NoOfResidentsIndicatorValue").innerHTML = NoOfResidentsIndicatorValue;
+  document.getElementById("AverageTravelSpeedIndicatorValue").innerHTML = AverageTravelSpeedIndicatorValue;
+}
+
 // execute code
 if (canvas.getContext) {
     // drawing code here
     grid.draw();
     console.log("drawing...");
-    
+    updateIndicatorValues();
     canvas.addEventListener('click', function(e) {
       let coords = getTileIndex(getCursorPosition(canvas, e).x, getCursorPosition(canvas, e).y);
 
@@ -112,8 +141,10 @@ if (canvas.getContext) {
       }
       console.log(newColor);
       grid.updateTileType(coords.xIndex, coords.yIndex, newColor);
-
+      
       grid.draw();
+
+      updateIndicatorValues();
     });
     
 } 

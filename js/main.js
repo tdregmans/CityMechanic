@@ -73,9 +73,19 @@ function drawTile(xIndex, yIndex, color) {
 
 function getCursorPosition(canvas, event) {
   const rect = canvas.getBoundingClientRect()
-  const x = event.clientX - rect.left
-  const y = event.clientY - rect.top
-  console.log("x: " + x + " y: " + y)
+  const x = event.clientX - rect.left;
+  const y = event.clientY - rect.top;
+  return ({"x": x, "y": y});
+}
+
+function getTileIndex(x, y) {
+  const startX = (width - gridWidth) / 2;
+  const startY = (height - gridHeight) / 2;
+
+  let xIndex = Math.floor((x - startX) / tileSize);
+  let yIndex = Math.floor((y - startY) / tileSize);
+
+  return ({"xIndex": xIndex, "yIndex": yIndex});
 }
 
 // execute code
@@ -85,7 +95,10 @@ if (canvas.getContext) {
     console.log("drawing...");
     
     canvas.addEventListener('click', function(e) {
-      getCursorPosition(canvas, e)
+      let coords = getTileIndex(getCursorPosition(canvas, e).x, getCursorPosition(canvas, e).y);
+
+      console.log(coords);
+      drawTile(coords.xIndex, coords.yIndex, "Red");
     });
     
 } 

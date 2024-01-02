@@ -61,8 +61,8 @@ class Grid {
   }
 }
 
-const tileSize = 20;
-const noOfTiles = 20;
+const tileSize = 40;
+const noOfTiles = 10;
 var grid = new Grid(tileSize, noOfTiles);
 
 const gridWidth = tileSize * noOfTiles;
@@ -107,7 +107,7 @@ if (canvas.getContext) {
       let coords = getTileIndex(getCursorPosition(canvas, e).x, getCursorPosition(canvas, e).y);
 
       let newColor = grid.getColor(coords.xIndex, coords.yIndex) + 1;
-      if (newColor > Object.getOwnPropertyNames(tileTypes).length - 1) {
+      if (newColor > Object.getOwnPropertyNames(tileTypes).length - 2) {
         newColor = 0;
       }
       console.log(newColor);

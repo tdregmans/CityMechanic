@@ -126,6 +126,18 @@ function updateIndicatorValues() {
   document.getElementById("AverageTravelSpeedIndicatorValue").innerHTML = AverageTravelSpeedIndicatorValue;
 }
 
+let active = true;
+
+function startStop() {
+  if (active) {
+    document.getElementById("mode-dropdown").setAttribute("disabled", "disabled");
+  }
+  else {
+    document.getElementById("mode-dropdown").removeAttribute("disabled");
+  }
+  active = !active;
+}
+
 // execute code
 if (canvas.getContext) {
     // drawing code here
@@ -133,18 +145,21 @@ if (canvas.getContext) {
     console.log("drawing...");
     updateIndicatorValues();
     canvas.addEventListener('click', function(e) {
-      let coords = getTileIndex(getCursorPosition(canvas, e).x, getCursorPosition(canvas, e).y);
 
-      let newColor = grid.getColor(coords.xIndex, coords.yIndex) + 1;
-      if (newColor > Object.getOwnPropertyNames(tileTypes).length - 2) {
-        newColor = 0;
+      if(active) {
+        let coords = getTileIndex(getCursorPosition(canvas, e).x, getCursorPosition(canvas, e).y);
+
+        let newColor = grid.getColor(coords.xIndex, coords.yIndex) + 1;
+        if (newColor > Object.getOwnPropertyNames(tileTypes).length - 2) {
+          newColor = 0;
+        }
+        console.log(newColor);
+        grid.updateTileType(coords.xIndex, coords.yIndex, newColor);
+        
+        grid.draw();
+
+        updateIndicatorValues();
       }
-      console.log(newColor);
-      grid.updateTileType(coords.xIndex, coords.yIndex, newColor);
-      
-      grid.draw();
-
-      updateIndicatorValues();
     });
     
 } 

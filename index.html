@@ -27,11 +27,20 @@
         
         <canvas class="screen" id="game" width="640" height="480"></canvas>
 
+        <div class="info left-info">
+            
+            <button onclick="startStop()">Start/Stop</button>
+
+        </div>
+
         <div class="info left-info mode">
             <h2>Mode</h2>
-            <ul>
-                <li>[select mode]</li>
-            </ul>
+            
+            <select name="mode" id="mode-dropdown">
+                <option value="default">default</option>
+            </select>
+
+
         </div>
 
         <div class="info left-info indicators">

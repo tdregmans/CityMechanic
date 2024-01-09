@@ -61,6 +61,33 @@ select{
 
 }
 
+.indicator-value {
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 3px 10px;
+    text-decoration: none;
+    color: #fff;
+    font-family: arial;
+    top: -2px;
+    position: relative;
+}
+
+.indicator & .indicator {
+    margin: 100px;
+}
+
+.indicator {
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 3px 10px;
+    text-decoration: none;
+    font-family: arial;
+    margin: 2px;
+    top: -2px;
+    position: relative;
+    display: inline-block;
+}
+
 .indicators {
     
 }

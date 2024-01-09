@@ -111,6 +111,22 @@ function getTileIndex(x, y) {
   return ({"xIndex": xIndex, "yIndex": yIndex});
 }
 
+function getColor(value) {
+  // value from 0 to 1
+  var hue = ((1 - value) * 120).toString(10);
+  return ["hsl(",hue,",100%,50%)"].join("");
+}
+
+function getColorValueFromRange(value, range) {
+  // value = 10
+  // range = [-10, 10]
+  var delta = range[1] - range[0]; // 20
+  if (value <= range[0]) {
+    
+  }
+  return value / delta;
+}
+
 // Indicators
 var EcologicalFootprintIndicatorValue = 0;
 var NoOfResidentsIndicatorValue = 0;
@@ -119,6 +135,14 @@ var EfficencyIndicatorValue = 0;
 var LoveOfNatureIndicatorValue = 0;
 var GdpPerCaptiaIndicatorValue = 0;
 var PercievedFreedomIndicatorValue = 0;
+
+const EcologicalFootprintIndicatorValueRange = [-10, 10];
+const NoOfResidentsIndicatorValueRange = [-10, 10];
+const AverageTravelSpeedIndicatorValueRange = [-10, 10];
+const EfficencyIndicatorValueRange = [-10, 10];
+const LoveOfNatureIndicatorValueRange = [-10, 10];
+const GdpPerCaptiaIndicatorValueRange = [-10, 10];
+const PercievedFreedomIndicatorValueRange = [-10, 10];
 
 function updateIndicatorValues() {
   EcologicalFootprintIndicatorValue = grid.getAmountOfColor(2) + grid.getAmountOfColor(3) - (grid.getAmountOfColor(1) + grid.getAmountOfColor(5));
@@ -136,6 +160,15 @@ function updateIndicatorValues() {
   document.getElementById("LoveOfNatureIndicatorValue").innerHTML = LoveOfNatureIndicatorValue;
   document.getElementById("GdpPerCaptiaIndicatorValue").innerHTML = GdpPerCaptiaIndicatorValue;
   document.getElementById("PercievedFreedomIndicatorValue").innerHTML = PercievedFreedomIndicatorValue;
+
+
+  document.getElementById("EcologicalFootprintIndicatorValue").style.backgroundColor = getColor(getColorValueFromRange(EcologicalFootprintIndicatorValue, EcologicalFootprintIndicatorValueRange));
+  document.getElementById("NoOfResidentsIndicatorValue").style.backgroundColor = getColor(getColorValueFromRange(NoOfResidentsIndicatorValue, NoOfResidentsIndicatorValueRange));
+  document.getElementById("AverageTravelSpeedIndicatorValue").style.backgroundColor = getColor(getColorValueFromRange(AverageTravelSpeedIndicatorValue, AverageTravelSpeedIndicatorValueRange));
+  document.getElementById("EfficencyIndicatorValue").style.backgroundColor = getColor(getColorValueFromRange(EfficencyIndicatorValue, EfficencyIndicatorValueRange));
+  document.getElementById("LoveOfNatureIndicatorValue").style.backgroundColor = getColor(getColorValueFromRange(LoveOfNatureIndicatorValue, LoveOfNatureIndicatorValueRange));
+  document.getElementById("GdpPerCaptiaIndicatorValue").style.backgroundColor = getColor(getColorValueFromRange(GdpPerCaptiaIndicatorValue, GdpPerCaptiaIndicatorValueRange));
+  document.getElementById("PercievedFreedomIndicatorValue").style.backgroundColor = getColor(getColorValueFromRange(PercievedFreedomIndicatorValue, PercievedFreedomIndicatorValueRange));
 }
 
 let active = true;

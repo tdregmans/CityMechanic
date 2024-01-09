@@ -115,15 +115,27 @@ function getTileIndex(x, y) {
 var EcologicalFootprintIndicatorValue = 0;
 var NoOfResidentsIndicatorValue = 0;
 var AverageTravelSpeedIndicatorValue = 0;
+var EfficencyIndicatorValue = 0;
+var LoveOfNatureIndicatorValue = 0;
+var GdpPerCaptiaIndicatorValue = 0;
+var PercievedFreedomIndicatorValue = 0;
 
 function updateIndicatorValues() {
   EcologicalFootprintIndicatorValue = grid.getAmountOfColor(2) + grid.getAmountOfColor(3) - (grid.getAmountOfColor(1) + grid.getAmountOfColor(5));
   NoOfResidentsIndicatorValue = grid.getAmountOfColor(4);
   AverageTravelSpeedIndicatorValue = grid.getAmountOfColor(1);
+  EfficencyIndicatorValue = grid.getAmountOfColor(1) + grid.getAmountOfColor(0) + grid.getAmountOfColor(5);
+  LoveOfNatureIndicatorValue = grid.getAmountOfColor(3);
+  GdpPerCaptiaIndicatorValue = (grid.getAmountOfColor(0) * 2) + grid.getAmountOfColor(5);
+  PercievedFreedomIndicatorValue = grid.getAmountOfColor(3) - (grid.getAmountOfColor(0) + grid.getAmountOfColor(1));
 
   document.getElementById("EcologicalFootprintIndicatorValue").innerHTML = EcologicalFootprintIndicatorValue;
   document.getElementById("NoOfResidentsIndicatorValue").innerHTML = NoOfResidentsIndicatorValue;
   document.getElementById("AverageTravelSpeedIndicatorValue").innerHTML = AverageTravelSpeedIndicatorValue;
+  document.getElementById("EfficencyIndicatorValue").innerHTML = EfficencyIndicatorValue;
+  document.getElementById("LoveOfNatureIndicatorValue").innerHTML = LoveOfNatureIndicatorValue;
+  document.getElementById("GdpPerCaptiaIndicatorValue").innerHTML = GdpPerCaptiaIndicatorValue;
+  document.getElementById("PercievedFreedomIndicatorValue").innerHTML = PercievedFreedomIndicatorValue;
 }
 
 let active = true;

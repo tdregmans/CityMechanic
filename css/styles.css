@@ -44,6 +44,47 @@ select{
     padding: 5px;
 }
 
+input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+}
+
+input[id="DarkBlue"]:hover + svg,
+input[id="DarkBlue"]:checked + svg,
+input[id="DarkBlue"]:focus + svg {
+  fill: DarkBlue;
+}
+
+input[id="DarkGray"]:hover + svg,
+input[id="DarkGray"]:checked + svg,
+input[id="DarkGray"]:focus + svg {
+  fill: DarkGray;
+}
+
+input[id="Cyan"]:hover + svg,
+input[id="Cyan"]:checked + svg,
+input[id="Cyan"]:focus + svg {
+  fill: Cyan;
+}
+
+input[id="LawnGreen"]:hover + svg,
+input[id="LawnGreen"]:checked + svg,
+input[id="LawnGreen"]:focus + svg {
+  fill: LawnGreen;
+}
+
+input[id="Tomato"]:hover + svg,
+input[id="Tomato"]:checked + svg,
+input[id="Tomato"]:focus + svg {
+  fill: Tomato;
+}
+
+input[id="Yellow"]:hover + svg,
+input[id="Yellow"]:checked + svg,
+input[id="Yellow"]:focus + svg {
+  fill: Yellow;
+}
+
 .left-info {
     left: 5%;
 }

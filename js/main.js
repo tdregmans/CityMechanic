@@ -24,6 +24,12 @@ let height = canvas.offsetHeight; // Height of the scene
 const tileTypes = ["DarkBlue", "DarkGray", "Cyan", "LawnGreen", "Tomato", "Yellow"];
 const playModes = ["Unlimited", "Scarce"];
 
+// build penmode selection
+for(tileTypeId = 0; tileTypeId < tileTypes.length; tileTypeId++) {
+  var tileColor = tileTypes[tileTypeId];
+  document.getElementById("pen-mode").innerHTML += "<label for='"+tileColor+"'> <input type='radio' name='pen' class='"+tileColor+"' id='"+tileColor+"' value='"+tileColor+"'/> <svg height='40' width='40'> <circle cx='20' cy='20' r='15' stroke='black' stroke-width='1' /> </svg> </label>";
+}
+
 const timeoutSeconds = 5;
 
 var playMode = 0;

@@ -24,6 +24,8 @@ let height = canvas.offsetHeight; // Height of the scene
 const tileTypes = ["DarkBlue", "DarkGray", "Cyan", "LawnGreen", "Tomato", "Yellow"];
 const playModes = ["Unlimited", "Scarce"];
 
+const timeoutSeconds = 5;
+
 var playMode = 0;
 
 class Grid {
@@ -177,13 +179,35 @@ function updateIndicatorValues() {
 let active = false;
 
 var timer = 0;
+var timeout = 0;
 
 function updateTimer() {
   timer += 1;
   document.getElementById("ClockValue").innerHTML = timer;
 }
 
+function updateTimeout(reset = false) {
+  console.log(timeout);
+  if (reset) {
+    timeout = timeoutSeconds;
+    TimeoutVar = setInterval(updateTimeout, 1000, false);
+    document.getElementById("timeout").innerHTML = "Timeout: <i class='indicator-value' id='timeoutValue' style='background-color: black;'></i>";
+    document.getElementById("timeoutValue").innerHTML = timeout;
+  }
+  else {
+    if (timeout > 0) {
+      timeout -= 1;
+      document.getElementById("timeoutValue").innerHTML = timeout;
+    }
+    else{
+      clearInterval(TimeoutVar);
+      document.getElementById("timeout").innerHTML = "";
+    }
+  }
+}
+
 var IntervalVar;
+var TimeoutVar;
 
 function startStop() {
   if (active) {
@@ -204,6 +228,22 @@ for(playModeId = 0; playModeId < playModes.length; playModeId++) {
   document.getElementById("mode-dropdown").innerHTML += "<option value='" + playModeId + "'>" + playModes[playModeId] + "</option>";
 }
 
+function updateGrid(e) {
+  let coords = getTileIndex(getCursorPosition(canvas, e).x, getCursorPosition(canvas, e).y);
+
+  let newColor = grid.getColor(coords.xIndex, coords.yIndex) + 1;
+  if (newColor > Object.getOwnPropertyNames(tileTypes).length - 2) {
+    newColor = 0;
+  }
+  console.log(newColor);
+  grid.updateTileType(coords.xIndex, coords.yIndex, newColor);
+  
+  grid.draw();
+
+  updateIndicatorValues();
+  updateTimeout(true);
+}
+
 // execute code
 if (canvas.getContext) {
     // drawing code here
@@ -213,18 +253,20 @@ if (canvas.getContext) {
     canvas.addEventListener('click', function(e) {
 
       if(active) {
-        let coords = getTileIndex(getCursorPosition(canvas, e).x, getCursorPosition(canvas, e).y);
-
-        let newColor = grid.getColor(coords.xIndex, coords.yIndex) + 1;
-        if (newColor > Object.getOwnPropertyNames(tileTypes).length - 2) {
-          newColor = 0;
+        playMode = document.getElementById("mode-dropdown").value;
+        if (playMode == 0) {
+          // playmode Unlimited
+          updateGrid(e);
         }
-        console.log(newColor);
-        grid.updateTileType(coords.xIndex, coords.yIndex, newColor);
-        
-        grid.draw();
-
-        updateIndicatorValues();
+        else if (playMode == 1 && timeout == 0) {
+          //playmode Scarce and timeout not active
+          console.log("Attempt");
+          updateGrid(e);
+        }
+        else if (playMode == 1 && timeout > 0) {
+          //playmode Scarce and timeout active
+          console.log("Attempt prevented");
+        }
       }
     });
     

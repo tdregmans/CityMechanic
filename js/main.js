@@ -1,10 +1,10 @@
 /**
  * CityMechanic
  * main.js
- * version: 1.0
+ * version: 1.1
  * 
  * Author: Thijs Dregmans
- * Last edited: 2024-01-02
+ * Last edited: 2024-01-10
  * 
  * See README.md for more information.
  */

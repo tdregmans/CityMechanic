@@ -86,8 +86,8 @@ class Grid {
   }
 }
 
-const tileSize = 40;
-const noOfTiles = 10;
+const tileSize = 20;
+const noOfTiles = 20;
 var grid = new Grid(tileSize, noOfTiles);
 
 const gridWidth = tileSize * noOfTiles;

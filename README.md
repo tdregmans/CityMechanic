@@ -1,10 +1,14 @@
 # CityMechanic
+
 CityMechanic is a game that allows the user to build cities and see the impact of their design choices.
 
 *The file structure was originally forked from [tdregmans/1000-the-game](https://github.com/tdregmans/1000-the-game).*
 
 ## Status
+
 The project is in development.
+
+There is a stable release: [Version 1.1](https://github.com/tdregmans/CityMechanic/releases/tag/v1.1).
 
 ## Idea
 
@@ -55,4 +59,3 @@ The game is played in a browser, with `index.html`. The style guide is stored in
 
 Here are some articles and other sources I used:
 - ['how to render 3d in 2d canvas' from mamboleoo.be](https://www.mamboleoo.be/articles/how-to-render-3d-in-2d-canvas)
-- 

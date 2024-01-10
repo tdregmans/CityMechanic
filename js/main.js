@@ -1,10 +1,10 @@
 /**
  * CityMechanic
  * main.js
- * version: 1.0
+ * version: 1.1
  * 
  * Author: Thijs Dregmans
- * Last edited: 2024-01-02
+ * Last edited: 2024-01-10
  * 
  * See README.md for more information.
  */
@@ -22,6 +22,17 @@ let width = canvas.offsetWidth; // Width of the scene
 let height = canvas.offsetHeight; // Height of the scene
 
 const tileTypes = ["DarkBlue", "DarkGray", "Cyan", "LawnGreen", "Tomato", "Yellow"];
+const playModes = ["Unlimited", "Scarce"];
+
+// build penmode selection
+for(tileTypeId = 0; tileTypeId < tileTypes.length; tileTypeId++) {
+  var tileColor = tileTypes[tileTypeId];
+  document.getElementById("pen-mode").innerHTML += "<label for='"+tileColor+"'> <input type='radio' name='pen' class='"+tileColor+"' id='"+tileColor+"' value='"+tileTypeId+"' onclick='changePenTo(this);' /> <svg height='40' width='40'> <circle cx='20' cy='20' r='15' stroke='black' stroke-width='1' /> </svg> </label>";
+}
+
+const timeoutSeconds = 5;
+
+var playMode = 0;
 
 class Grid {
   constructor(tileSize, noOfTiles) {
@@ -75,8 +86,8 @@ class Grid {
   }
 }
 
-const tileSize = 40;
-const noOfTiles = 10;
+const tileSize = 20;
+const noOfTiles = 20;
 var grid = new Grid(tileSize, noOfTiles);
 
 const gridWidth = tileSize * noOfTiles;
@@ -127,6 +138,10 @@ function getColorValueFromRange(value, range) {
   return value / delta;
 }
 
+function changePenTo(radioButton) {
+  penType = radioButton.value;
+}
+
 // Indicators
 var EcologicalFootprintIndicatorValue = 0;
 var NoOfResidentsIndicatorValue = 0;
@@ -171,16 +186,75 @@ function updateIndicatorValues() {
   document.getElementById("PercievedFreedomIndicatorValue").style.backgroundColor = getColor(getColorValueFromRange(PercievedFreedomIndicatorValue, PercievedFreedomIndicatorValueRange));
 }
 
-let active = true;
+let active = false;
+
+var timer = 0;
+var timeout = 0;
+
+var penType = -1;
+
+function updateTimer() {
+  timer += 1;
+  document.getElementById("ClockValue").innerHTML = timer;
+}
+
+function updateTimeout(reset = false) {
+  if (reset) {
+    timeout = timeoutSeconds;
+    TimeoutVar = setInterval(updateTimeout, 1000, false);
+    document.getElementById("timeout").innerHTML = "Timeout: <i class='indicator-value' id='timeoutValue' style='background-color: black;'></i>";
+    document.getElementById("timeoutValue").innerHTML = timeout;
+  }
+  else {
+    if (timeout > 0) {
+      timeout -= 1;
+      document.getElementById("timeoutValue").innerHTML = timeout;
+    }
+    else{
+      clearInterval(TimeoutVar);
+      document.getElementById("timeout").innerHTML = "";
+    }
+  }
+}
+
+var IntervalVar;
+var TimeoutVar;
 
 function startStop() {
   if (active) {
-    document.getElementById("mode-dropdown").setAttribute("disabled", "disabled");
+    document.getElementById("mode-dropdown").removeAttribute("disabled");
+    document.getElementById("startStopButton").innerHTML = "Start";
+    clearInterval(IntervalVar);
   }
   else {
-    document.getElementById("mode-dropdown").removeAttribute("disabled");
+    document.getElementById("mode-dropdown").setAttribute("disabled", "disabled");
+    document.getElementById("startStopButton").innerHTML = "Stop";
+    IntervalVar = setInterval(updateTimer, 1000);
   }
   active = !active;
+}
+
+for(playModeId = 0; playModeId < playModes.length; playModeId++) {
+  document.getElementById("mode-dropdown").innerHTML += "<option value='" + playModeId + "'>" + playModes[playModeId] + "</option>";
+}
+
+function updateGrid(e) {
+  let coords = getTileIndex(getCursorPosition(canvas, e).x, getCursorPosition(canvas, e).y);
+
+  if (penType != -1) {
+    let newColor = penType;
+    if (newColor > Object.getOwnPropertyNames(tileTypes).length - 2) {
+      newColor = 0;
+    }
+    grid.updateTileType(coords.xIndex, coords.yIndex, newColor);
+    
+    grid.draw();
+
+    updateIndicatorValues();
+    if (playMode == 1) {
+      updateTimeout(true);
+    }
+  }
 }
 
 // execute code
@@ -192,18 +266,19 @@ if (canvas.getContext) {
     canvas.addEventListener('click', function(e) {
 
       if(active) {
-        let coords = getTileIndex(getCursorPosition(canvas, e).x, getCursorPosition(canvas, e).y);
-
-        let newColor = grid.getColor(coords.xIndex, coords.yIndex) + 1;
-        if (newColor > Object.getOwnPropertyNames(tileTypes).length - 2) {
-          newColor = 0;
+        playMode = document.getElementById("mode-dropdown").value;
+        if (playMode == 0) {
+          // playmode Unlimited
+          updateGrid(e);
         }
-        console.log(newColor);
-        grid.updateTileType(coords.xIndex, coords.yIndex, newColor);
-        
-        grid.draw();
-
-        updateIndicatorValues();
+        else if (playMode == 1 && timeout == 0) {
+          // playmode Scarce and timeout not active
+          updateGrid(e);
+        }
+        else if (playMode == 1 && timeout > 0) {
+          // playmode Scarce and timeout active
+          // attempt prevented
+        }
       }
     });
     

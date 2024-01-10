@@ -25,17 +25,25 @@
 
         <div class="info left-info">
             
-            <button onclick="startStop()">Start/Stop</button>
+            <button id="startStopButton" onclick="startStop()">Start</button>
+
+        </div>
+
+        <div class="info left-info">
+            
+            <h2>Clock</h2>
+            <p id="clock"><i class="indicator-value" id="ClockValue" style="background-color: black;">0</i></p>
+            <p id="timeout"></p>
 
         </div>
 
         <div class="info left-info mode">
-            <h2>Mode</h2>
-            
-            <select name="mode" id="mode-dropdown">
-                <option value="default">default</option>
-            </select>
 
+            <h3>Mode</h2>
+            <select name="mode" id="mode-dropdown"></select>
+
+            <h3>Pen</h3>
+            <form id="pen-mode"></form>
 
         </div>
 
@@ -66,7 +74,7 @@
 
         <script src="js/main.js"></script>
 
-        <p class="comment outside-text">tdregmans &#169; | CityMechanic v1.0 | 2024-01-09 | <a class="link" target="_blank" href="https://github.com/tdregmans/CityMechanic">view source code</a></p>
+        <p class="comment outside-text">tdregmans &#169; | CityMechanic v1.1 | 2024-01-10 | <a class="link" target="_blank" href="https://github.com/tdregmans/CityMechanic">view source code</a></p>
         
     </body>
 </html>

@@ -27,7 +27,7 @@ const playModes = ["Unlimited", "Scarce"];
 // build penmode selection
 for(tileTypeId = 0; tileTypeId < tileTypes.length; tileTypeId++) {
   var tileColor = tileTypes[tileTypeId];
-  document.getElementById("pen-mode").innerHTML += "<label for='"+tileColor+"'> <input type='radio' name='pen' class='"+tileColor+"' id='"+tileColor+"' value='"+tileColor+"'/> <svg height='40' width='40'> <circle cx='20' cy='20' r='15' stroke='black' stroke-width='1' /> </svg> </label>";
+  document.getElementById("pen-mode").innerHTML += "<label for='"+tileColor+"'> <input type='radio' name='pen' class='"+tileColor+"' id='"+tileColor+"' value='"+tileTypeId+"' onclick='changePenTo(this);' /> <svg height='40' width='40'> <circle cx='20' cy='20' r='15' stroke='black' stroke-width='1' /> </svg> </label>";
 }
 
 const timeoutSeconds = 5;
@@ -138,6 +138,10 @@ function getColorValueFromRange(value, range) {
   return value / delta;
 }
 
+function changePenTo(radioButton) {
+  penType = radioButton.value;
+}
+
 // Indicators
 var EcologicalFootprintIndicatorValue = 0;
 var NoOfResidentsIndicatorValue = 0;
@@ -187,13 +191,14 @@ let active = false;
 var timer = 0;
 var timeout = 0;
 
+var penType = -1;
+
 function updateTimer() {
   timer += 1;
   document.getElementById("ClockValue").innerHTML = timer;
 }
 
 function updateTimeout(reset = false) {
-  console.log(timeout);
   if (reset) {
     timeout = timeoutSeconds;
     TimeoutVar = setInterval(updateTimeout, 1000, false);
@@ -230,24 +235,26 @@ function startStop() {
 }
 
 for(playModeId = 0; playModeId < playModes.length; playModeId++) {
-  console.log(playModes[playModeId]);
   document.getElementById("mode-dropdown").innerHTML += "<option value='" + playModeId + "'>" + playModes[playModeId] + "</option>";
 }
 
 function updateGrid(e) {
   let coords = getTileIndex(getCursorPosition(canvas, e).x, getCursorPosition(canvas, e).y);
 
-  let newColor = grid.getColor(coords.xIndex, coords.yIndex) + 1;
-  if (newColor > Object.getOwnPropertyNames(tileTypes).length - 2) {
-    newColor = 0;
-  }
-  console.log(newColor);
-  grid.updateTileType(coords.xIndex, coords.yIndex, newColor);
-  
-  grid.draw();
+  if (penType != -1) {
+    let newColor = penType;
+    if (newColor > Object.getOwnPropertyNames(tileTypes).length - 2) {
+      newColor = 0;
+    }
+    grid.updateTileType(coords.xIndex, coords.yIndex, newColor);
+    
+    grid.draw();
 
-  updateIndicatorValues();
-  updateTimeout(true);
+    updateIndicatorValues();
+    if (playMode == 1) {
+      updateTimeout(true);
+    }
+  }
 }
 
 // execute code
@@ -265,13 +272,12 @@ if (canvas.getContext) {
           updateGrid(e);
         }
         else if (playMode == 1 && timeout == 0) {
-          //playmode Scarce and timeout not active
-          console.log("Attempt");
+          // playmode Scarce and timeout not active
           updateGrid(e);
         }
         else if (playMode == 1 && timeout > 0) {
-          //playmode Scarce and timeout active
-          console.log("Attempt prevented");
+          // playmode Scarce and timeout active
+          // attempt prevented
         }
       }
     });

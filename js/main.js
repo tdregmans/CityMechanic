@@ -174,21 +174,23 @@ function updateIndicatorValues() {
   document.getElementById("PercievedFreedomIndicatorValue").style.backgroundColor = getColor(getColorValueFromRange(PercievedFreedomIndicatorValue, PercievedFreedomIndicatorValueRange));
 }
 
-let active = true;
+let active = false;
 
 function startStop() {
   if (active) {
-    document.getElementById("mode-dropdown").setAttribute("disabled", "disabled");
+    document.getElementById("mode-dropdown").removeAttribute("disabled");
+    document.getElementById("startStopButton").innerHTML = "Start";
   }
   else {
-    document.getElementById("mode-dropdown").removeAttribute("disabled");
+    document.getElementById("mode-dropdown").setAttribute("disabled", "disabled");
+    document.getElementById("startStopButton").innerHTML = "Stop";
   }
   active = !active;
 }
 
 for(playModeId = 0; playModeId < playModes.length; playModeId++) {
   console.log(playModes[playModeId]);
-  document.getElementById("mode-dropdown").innerHTML += "<option value='" + playModes[playModeId] + "'>" + playModes[playModeId] + "</option>";
+  document.getElementById("mode-dropdown").innerHTML += "<option value='" + playModeId + "'>" + playModes[playModeId] + "</option>";
 }
 
 // execute code

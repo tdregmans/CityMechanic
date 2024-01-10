@@ -22,6 +22,9 @@ let width = canvas.offsetWidth; // Width of the scene
 let height = canvas.offsetHeight; // Height of the scene
 
 const tileTypes = ["DarkBlue", "DarkGray", "Cyan", "LawnGreen", "Tomato", "Yellow"];
+const playModes = ["Unlimited", "Scarce"];
+
+var playMode = 0;
 
 class Grid {
   constructor(tileSize, noOfTiles) {
@@ -181,6 +184,11 @@ function startStop() {
     document.getElementById("mode-dropdown").removeAttribute("disabled");
   }
   active = !active;
+}
+
+for(playModeId = 0; playModeId < playModes.length; playModeId++) {
+  console.log(playModes[playModeId]);
+  document.getElementById("mode-dropdown").innerHTML += "<option value='" + playModes[playModeId] + "'>" + playModes[playModeId] + "</option>";
 }
 
 // execute code

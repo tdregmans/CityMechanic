@@ -176,14 +176,25 @@ function updateIndicatorValues() {
 
 let active = false;
 
+var timer = 0;
+
+function updateTimer() {
+  timer += 1;
+  document.getElementById("ClockValue").innerHTML = timer;
+}
+
+var IntervalVar;
+
 function startStop() {
   if (active) {
     document.getElementById("mode-dropdown").removeAttribute("disabled");
     document.getElementById("startStopButton").innerHTML = "Start";
+    clearInterval(IntervalVar);
   }
   else {
     document.getElementById("mode-dropdown").setAttribute("disabled", "disabled");
     document.getElementById("startStopButton").innerHTML = "Stop";
+    IntervalVar = setInterval(updateTimer, 1000);
   }
   active = !active;
 }
